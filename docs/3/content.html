@@ -3,10 +3,34 @@
 <head>
     <meta charset="utf-8">
     <title>小説の中間テキストファイルを外部から読み込んでHTMLに変換する。</title>
-    <script src="./main.js" type="module"></script>
+<!--    <script src="./main.js" type="module"></script>-->
 </head>
 <body>
 <h1><a href="https://github.com/ytyaru/JS.Novel.Parser.Loader.20210216091021">小説の中間テキストファイルを外部から読み込んでHTMLに変換する。</a></h1>
 <div id="content"></div>
+<script type="module">
+import FileLoader from './js/fileloader/FileLoader.js';
+import Kakuyomu from './js/novelparser/parser/Kakuyomu.js';
+import BreakLine from './js/novelparser/parser/parts/BreakLine.js';
+import Paragraph from './js/novelparser/parser/parts/Paragraph.js';
+window.addEventListener('load', async(event) => {
+    const id = getId();
+    const source = await FileLoader.load(`./txt/${id}.txt`);
+    const content = BreakLine.parse(Paragraph.parse(new Kakuyomu().parse(source)));
+    document.querySelector(`#content`).innerHTML = content;
+    function getParameters() { // URL書式: protocol://domain/path?param1=val1&param2=val2
+        const params = new URL(location.href).searchParams;
+        for (const key of params.keys()) {
+            console.log(`${key} = ${params.get(key)}`);
+        }
+    }
+    function getId() {
+        const params = new URL(location.href).searchParams;
+        for (const key of params.keys()) {
+            if ('id' === key) { return params.get(key); }
+        }
+    }
+});
+</script>
 </body>
 </html>
