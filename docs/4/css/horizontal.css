@@ -1,0 +1,14 @@
+@charset "utf-8";
+#content{ /* 横書き */
+    margin: 0 auto;
+    width: 90%;
+}
+#content p {
+    margin: 0 0 1em 0;
+}
+@media (max-width: 480px) {
+    #content {
+        margin: 0;
+        width: 100%;
+    }
+}
