@@ -14,6 +14,7 @@ export default class IndexGrid {
             const url = `./content.html?id=${args[1]._cells[0].data}`
             console.log(url);
             location.href = url;
+            // window.open(url, '_blank'); // 新しいタブで開く
         });
     }
     static #createIndexAggregate(indexes) {
